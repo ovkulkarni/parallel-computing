@@ -1,13 +1,13 @@
 #include <stdio.h>
 #include <math.h>
 
-int main(){
-    FILE* fin = fopen("decodeME.txt", "r");
+int main(int argc, char* argv[]){
+    FILE* fin = fopen("encoded_assignment.txt", "r");
     char tree[12345] = {0};
     int freqs[256] = {0};
     char ch;
     char act;
-    int numlines = 28;
+    int numlines = 17;
     int currline = 0;
     int numbytes;
     int index = 1;
