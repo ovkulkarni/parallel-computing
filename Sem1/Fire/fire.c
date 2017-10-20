@@ -2,8 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#define WIDTH 80
-#define HEIGHT 70
+#define WIDTH 40
+#define HEIGHT 30
 #define TREE 'T'
 #define FIRE 'F'
 
@@ -47,7 +47,7 @@ void fillforest(char f[WIDTH][HEIGHT], float threshold){
 }
 
 
-void lightforest(char f[WIDTH][HEIGHT]){
+float lightforest(char f[WIDTH][HEIGHT]){
     Fire* currfire[WIDTH * HEIGHT] = { NULL };
     Fire* newfire[WIDTH * HEIGHT] = { NULL };
     int index = 0;
@@ -119,7 +119,7 @@ void lightforest(char f[WIDTH][HEIGHT]){
         }
     }
     // printforest(f);
-    printf("Number of Steps: %d\n", steps);
+    return (steps * 1.0) / WIDTH;
 }
 
 int main(int argc, char* argv[]){
@@ -127,7 +127,25 @@ int main(int argc, char* argv[]){
     rseed = time( NULL );
     srand(rseed);
     char forest[WIDTH][HEIGHT];
-    fillforest(forest, 0.6);
-    //printforest(forest);
-    lightforest(forest);
+    printf("p\tsteps\n");
+    for(float i = 0.0; i < 1.05; i += 0.05){
+        float total_steps = 0.0;
+        float avg_steps = 0.0;
+        float avgs[1000] = {0};
+        int j = 0;
+        for(j = 1; j < 1000; j++){
+            fillforest(forest, i);
+            total_steps += lightforest(forest);
+            avg_steps = total_steps / j;
+            avgs[j] = avg_steps;
+            int x = 20;
+            for(x = 20; x > 0; x--){
+                if(avgs[j] - avgs[j-x] > 0.001 || avgs[j-x] - avgs[j] > 0.001)
+                    break;
+            }
+            if(x == 0)
+                break;
+        }
+        printf("%f\t%f\n", i, avg_steps);
+    }
 }
