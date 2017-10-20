@@ -3,8 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-#define WIDTH 160
-#define HEIGHT 120
+#define WIDTH 400
+#define HEIGHT 300
 #define TREE 'T'
 #define FIRE 'F'
 
@@ -132,7 +132,7 @@ int main(int argc, char* argv[]){
     rseed = time( NULL );
     srand(rseed);
     char forest[WIDTH][HEIGHT];
-    printf("p\t%dx%d\n", WIDTH, HEIGHT);
+    printf("p\tsteps\n");
     for(float i = 0.0; i < 1.000; i += 0.025){
         float total_steps = 0.0;
         float avg_steps = 0.0;
@@ -153,5 +153,4 @@ int main(int argc, char* argv[]){
         }
         printf("%f\t%f\t%d\n", i, avg_steps, j);
     }
-    printf("seed: %d\n", rseed);
 }
