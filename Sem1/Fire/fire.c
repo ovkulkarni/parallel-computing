@@ -3,8 +3,8 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
-#define WIDTH 160
-#define HEIGHT 120
+#define WIDTH 40
+#define HEIGHT 30
 #define TREE 'T'
 #define FIRE 'F'
 
