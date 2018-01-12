@@ -7,7 +7,7 @@
 #define MR 1737E3
 #define MM 7.34767309E22
 #define MOH 384402E3
-#define MV 1022
+#define MV 500
 #define SD ER + (MOH / 2)
 #define APV 1500
 #define PI 3.14159265358979323846
@@ -18,7 +18,7 @@ int runSim(float theta, int print){
   int pastmoon = 0;
   int returned = 0;
   float mx = ER + MOH;
-  float my = 0.0f;
+  float my = 0;
   float mvy = MV;
   float mvx = 0.0f;
   float mr = hypot(mx, my);
@@ -43,7 +43,7 @@ int runSim(float theta, int print){
     printf("t\tv\tr\n");
   for(float t = dt; t < tot; t += dt){
       if(print)
-        printf("%0.2f\t%0.2f\t%0.2f\n", t, hypot(apvx, apvy), apr);
+        printf("%0.2f\t%0.2f\t%0.2f\n", t, hypot(apvx, apvy), aprm);
       mr = hypot(mx, my);
       ma = (G*EM)/pow(mr, 2);
       max = -1 * ma * (mx / mr);
@@ -98,8 +98,8 @@ float search(float min, float max){
 }
 int main(int argc, char* argv[]){
     //fprintf(stderr, "Returned %d\n", runSim(0.69, 1));
-    //*
-    float theta = search(0.0f, 0.75);
+    runSim(0.56f, 1);
+    /*float theta = search(0.0f, 0.75f);
     fprintf(stderr, "Found angle: %0.2f\n", theta);
     /**/
     return 0;
