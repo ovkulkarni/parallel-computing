@@ -14,7 +14,7 @@
 
 int runSim(float theta, int print){
   float dt = 1.0f;
-  int tot = 4 * 24 * 60 * 60;
+  int tot = 10 * 24 * 60 * 60;
   int pastmoon = 0;
   int returned = 0;
   float mx = ER + MOH;
@@ -41,7 +41,7 @@ int runSim(float theta, int print){
   float apay = apmy + apey;
   if(print)
     printf("t\tx\ty\tmx\tmy\n");
-  for(float t = dt; t < (tot*(1+(2*print))); t += dt){
+  for(float t = dt; t < tot; t += dt){
       if(print)
         printf("%0.2f\t%0.2f\t%0.2f\t%0.2f\t%0.2f\n", t, apx, apy, mx, my);
       mr = hypot(mx, my);
@@ -98,8 +98,9 @@ float search(float min, float max){
 }
 int main(int argc, char* argv[]){
     //fprintf(stderr, "Returned %d\n", runSim(0.69, 1));
-    float theta = search(0.0f, 0.75f);
+    runSim(0.56f, 1);
+    /*float theta = search(0.0f, 0.75f);
     fprintf(stderr, "Found angle: %0.2f\n", theta);
-    /**/
+    */
     return 0;
 }
