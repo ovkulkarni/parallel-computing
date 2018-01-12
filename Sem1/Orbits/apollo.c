@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 
 #define G 6.67408E-11
@@ -14,7 +15,7 @@
 
 int runSim(float theta, int print){
   float dt = 1.0f;
-  int tot = 10 * 24 * 60 * 60;
+  int tot = 4 * 24 * 60 * 60;
   int pastmoon = 0;
   int returned = 0;
   float mx = ER + MOH;
@@ -41,7 +42,7 @@ int runSim(float theta, int print){
   float apay = apmy + apey;
   if(print)
     printf("t\tx\ty\tmx\tmy\n");
-  for(float t = dt; t < tot; t += dt){
+  for(float t = dt; t < (tot*(1+print)); t += dt){
       if(print)
         printf("%0.2f\t%0.2f\t%0.2f\t%0.2f\t%0.2f\n", t, apx, apy, mx, my);
       mr = hypot(mx, my);
@@ -66,15 +67,17 @@ int runSim(float theta, int print){
       apvy += apay*dt;
       apx += apvx*dt;
       apy += apvy*dt;
-      if(aprm <= MR) return 2;
-      if(apr > mr && !pastmoon) {
-        if(apx/apr > mx/mr) return -1;
-        pastmoon = 1;
-      }
-      if(apr < mr && pastmoon){
-        if(apx/apr < mx/mr) return 1;
-        returned = 1;
-      }
+      if(!print) {
+          if(aprm <= MR) return 2;
+          if(apr > mr && !pastmoon) {
+            if(apx/apr > mx/mr) return -1;
+            pastmoon = 1;
+          }
+          if(apr < mr && pastmoon){
+            if(apx/apr < mx/mr) return 1;
+            returned = 1;
+          }
+        }
   }
   if(returned) return 0;
   return 3;
@@ -98,9 +101,8 @@ float search(float min, float max){
 }
 int main(int argc, char* argv[]){
     //fprintf(stderr, "Returned %d\n", runSim(0.69, 1));
-    runSim(0.56f, 1);
-    /*float theta = search(0.0f, 0.75f);
+    //runSim(atof(argv[1]), 1);
+    float theta = search(0.0f, 0.75f);
     fprintf(stderr, "Found angle: %0.2f\n", theta);
-    */
     return 0;
 }
